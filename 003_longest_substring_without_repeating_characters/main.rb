@@ -1,38 +1,32 @@
 # @param {String} s
 # @return {Integer}
 
-
+# sliding window
 
 def length_of_longest_substring(s)
 
-    return 0 if s.empty?
+# version 1: 108 ms
+#     string = ''
+#     longest_string = ''
+    
+#     s.split('').each do |char|
+#         string = string[(string.index(char)+1)..-1] if string.include? char        
+#         string += char
+#         longest_string = string if string.length > longest_string.length    
+#     end
+#     longest_string.length
+   
 
-    index = 0
-    longest_substring = ""
-    substring = ""
-    max_length_substring = 0
-
-    while index < s.length
-        until substring.include? s[index]
-             substring += s[index]
-             index += 1
-	           break if index == s.length
-        end
-        if substring.length > max_length_substring
-            longest_substring = substring
-            max_length_substring = substring.length
-        end
-        break if index == s.length
-
-        substring = substring[(substring.index(s[index])+1)..(-1)] + s[index]
-        if substring.length > max_length_substring
-            longest_substring = substring
-            max_length_substring = substring.length
-        end
-
-        index +=1
-
+# version 2: 92ms
+    string_array =[]
+    length_longest_string = 0
+    s.chars.each do |char|
+        index_char = string_array.index(char)
+        string_array = string_array[(index_char+1)..-1] if index_char
+        string_array << char
+        length_longest_string += 1 if string_array.length > length_longest_string 
     end
-
-    return longest_substring.length
+    length_longest_string
+     
 end
+
